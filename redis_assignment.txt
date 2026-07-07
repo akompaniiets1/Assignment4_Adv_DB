@@ -1,0 +1,44 @@
+Redis Assignment Commands
+
+1. String Operations
+SET product:1:name "Wireless Mouse"
+SET product:1:price "25.99"
+SET product:1:category "Electronics"
+GET product:1:name
+GET product:1:price
+GET product:1:category
+
+2. Hash Operations
+HSET product:2 name "Mechanical Keyboard" price "89.99" category "Electronics" stock "45"
+HGETALL product:2
+
+3. List Operations
+RPUSH recent_orders order:1001 order:1002 order:1003 order:1004 order:1005 order:1006 order:1007 order:1008 order:1009 order:1010
+LRANGE recent_orders 0 -1
+LRANGE recent_orders -3 -1
+
+4. Set Operations
+SADD product_tags electronics laptop accessories gaming wireless keyboard mouse office
+SADD product_tags wireless
+SMEMBERS product_tags
+SISMEMBER product_tags gaming
+SISMEMBER product_tags kitchen
+
+5. Expiration TTL
+SET featured_product "product:1"
+EXPIRE featured_product 60
+TTL featured_product
+GET featured_product
+# After 60 seconds:
+TTL featured_product
+GET featured_product
+
+6. Cache Simulation
+SET cache:product:1001 "Product page: Wireless Mouse, price 25.99, category Electronics" EX 120
+GET cache:product:1001
+TTL cache:product:1001
+
+7. Bonus: Sorted Set Leaderboard
+ZADD sales_leaderboard 150 product:1 220 product:2 95 product:3 310 product:4 180 product:5
+ZREVRANGE sales_leaderboard 0 -1 WITHSCORES
+ZREVRANGE sales_leaderboard 0 0 WITHSCORES
